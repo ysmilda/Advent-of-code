@@ -9,58 +9,67 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-var solvers []solver.SolverInterface
+var solvers []solver.SolverInterface = []solver.SolverInterface{
+	day_1.Solver{},
+}
 
 func main() {
-	dayFlag := flag.Uint("d", 0, "the day to solve, when set to 0 all days will be solved")
+	solverFlag := flag.Uint("s", 0, "the solver to run, when set to 0 all solvers will be run")
 	flag.Parse()
 
 	// Normalize flag input
-	day := int(*dayFlag)
-
-	// Initialize all the solvers, parsing the input.
-	initSolvers()
+	solverIndex := int(*solverFlag)
 
 	// Program logic
 	// Either do nothing because the requested day is not created yet
 	// Or execute all solvers if the requested day == 0
 	// Or execute the requested day
-	if day > len(solvers) {
+	if solverIndex > len(solvers) {
 		log.WithFields(log.Fields{
-			"day": day,
+			"solver": solverIndex,
 		}).Fatal("Solution not created yet")
 
-	} else if day == 0 {
+	} else if solverIndex == 0 {
 		for _, solver := range solvers {
 			executeSolver(solver)
 		}
 
 	} else {
-		executeSolver(solvers[day-1])
+		executeSolver(solvers[solverIndex-1])
 	}
-}
-
-func initSolvers() {
-	day_1, err := day_1.GetSolver()
-	if err != nil {
-		log.WithFields(log.Fields{
-			"error": err,
-			"day":   1,
-		}).Fatal("Failed to read input")
-	}
-
-	solvers = append(solvers,
-		day_1,
-	)
 }
 
 func executeSolver(solver solver.SolverInterface) {
 	start := time.Now()
 
+	input, err := solver.GetSolver()
+	if err != nil {
+		log.WithFields(log.Fields{
+			"day":   solver.GetDay(),
+			"error": err,
+		}).Fatal("Failed to parse input")
+	}
+
+	part1, err := input.Part1()
+	if err != nil {
+		log.WithFields(log.Fields{
+			"day":   solver.GetDay(),
+			"error": err,
+		}).Info("Failed to solve part 1")
+	}
+
+	part2, err := input.Part2()
+	if err != nil {
+		log.WithFields(log.Fields{
+			"day":   solver.GetDay(),
+			"error": err,
+		}).Info("Failed to solve part 2")
+	}
+
 	log.WithFields(log.Fields{
 		"day":     solver.GetDay(),
-		"part 1":  solver.Part1(),
-		"part 2":  solver.Part2(),
+		"part 1":  part1,
+		"part 2":  part2,
 		"runtime": time.Since(start).String(),
 	}).Info("Solution found")
 }

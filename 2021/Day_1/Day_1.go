@@ -1,6 +1,7 @@
 package day_1
 
 import (
+	solver "advent-of-code-2021/SolverInterface"
 	_ "embed"
 	"strconv"
 	"strings"
@@ -13,7 +14,7 @@ type Solver struct {
 	Input []int
 }
 
-func GetSolver() (Solver, error) {
+func (s Solver) GetSolver() (solver.SolverInterface, error) {
 	input, err := parseInput()
 	if err != nil {
 		return Solver{}, err
@@ -24,31 +25,35 @@ func GetSolver() (Solver, error) {
 	}, nil
 }
 
-func (d Solver) GetDay() int {
+func (s Solver) GetDay() int {
 	return 1
 }
 
-func (d Solver) Part1() (count int) {
-	for i := 1; i < len(d.Input); i++ {
-		if d.Input[i] > d.Input[i-1] {
+func (s Solver) Part1() (int, error) {
+	count := 0
+
+	for i := 1; i < len(s.Input); i++ {
+		if s.Input[i] > s.Input[i-1] {
 			count++
 		}
 	}
 
-	return count
+	return count, nil
 }
 
-func (d Solver) Part2() (count int) {
-	for i := 0; i < len(d.Input)-3; i++ {
-		averageA := d.Input[i] + d.Input[i+1] + d.Input[i+2]
-		averageB := d.Input[i+1] + d.Input[i+2] + d.Input[i+3]
+func (s Solver) Part2() (int, error) {
+	count := 0
+
+	for i := 0; i < len(s.Input)-3; i++ {
+		averageA := s.Input[i] + s.Input[i+1] + s.Input[i+2]
+		averageB := s.Input[i+1] + s.Input[i+2] + s.Input[i+3]
 
 		if averageB > averageA {
 			count++
 		}
 	}
 
-	return count
+	return count, nil
 }
 
 func parseInput() (output []int, err error) {
