@@ -45,10 +45,7 @@ func (s Solver) Part2() (int, error) {
 	count := 0
 
 	for i := 0; i < len(s.Input)-3; i++ {
-		averageA := s.Input[i] + s.Input[i+1] + s.Input[i+2]
-		averageB := s.Input[i+1] + s.Input[i+2] + s.Input[i+3]
-
-		if averageB > averageA {
+		if s.Input[i] < s.Input[i+3] {
 			count++
 		}
 	}
