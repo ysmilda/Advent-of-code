@@ -8,7 +8,7 @@ import (
 )
 
 //go:embed input.txt
-var inputDay1 string
+var inputFile string
 
 type Solver struct {
 	Input []int
@@ -57,7 +57,7 @@ func (s Solver) Part2() (int, error) {
 }
 
 func parseInput() (output []int, err error) {
-	lines := strings.Split(inputDay1, "\n")
+	lines := strings.Split(inputFile, "\n")
 
 	for _, line := range lines {
 		value, err := strconv.Atoi(line)
