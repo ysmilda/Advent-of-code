@@ -11,12 +11,12 @@ import (
 var inputFile string
 
 type Solver struct {
-	Input []step
+	Input []Step
 }
 
-type step struct {
-	direction string
-	amount    int
+type Step struct {
+	Direction string
+	Amount    int
 }
 
 type position struct {
@@ -42,15 +42,15 @@ func (s Solver) Part1() (int, error) {
 	current := position{0, 0}
 
 	for _, step := range s.Input {
-		switch step.direction {
+		switch step.Direction {
 		case "forward":
-			current.y += step.amount
+			current.y += step.Amount
 
 		case "down":
-			current.x += step.amount
+			current.x += step.Amount
 
 		case "up":
-			current.x -= step.amount
+			current.x -= step.Amount
 
 		}
 	}
@@ -63,16 +63,16 @@ func (s Solver) Part2() (int, error) {
 	aim := 0
 
 	for _, step := range s.Input {
-		switch step.direction {
+		switch step.Direction {
 		case "forward":
-			current.y += step.amount
-			current.x += aim * step.amount
+			current.y += step.Amount
+			current.x += aim * step.Amount
 
 		case "down":
-			aim += step.amount
+			aim += step.Amount
 
 		case "up":
-			aim -= step.amount
+			aim -= step.Amount
 
 		}
 	}
@@ -80,7 +80,7 @@ func (s Solver) Part2() (int, error) {
 	return current.x * current.y, nil
 }
 
-func parseInput() (output []step, err error) {
+func parseInput() (output []Step, err error) {
 	lines := strings.Split(inputFile, "\n")
 
 	for _, line := range lines {
@@ -92,9 +92,9 @@ func parseInput() (output []step, err error) {
 			return nil, err
 		}
 
-		output = append(output, step{
-			direction: split[0],
-			amount:    value,
+		output = append(output, Step{
+			Direction: split[0],
+			Amount:    value,
 		})
 	}
 
