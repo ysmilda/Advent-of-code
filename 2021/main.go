@@ -3,6 +3,8 @@ package main
 import (
 	day_1 "advent-of-code-2021/Day_1"
 	day_2 "advent-of-code-2021/Day_2"
+	day_3 "advent-of-code-2021/Day_3"
+	day_4 "advent-of-code-2021/Day_4"
 	solver "advent-of-code-2021/SolverInterface"
 	"flag"
 	"time"
@@ -13,6 +15,8 @@ import (
 var solvers []solver.SolverInterface = []solver.SolverInterface{
 	day_1.Solver{},
 	day_2.Solver{},
+	day_3.Solver{},
+	day_4.Solver{},
 }
 
 func main() {
