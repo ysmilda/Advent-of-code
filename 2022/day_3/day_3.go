@@ -56,7 +56,7 @@ func (s Solver) GetSolver() (solver.SolverInterface, error) {
 }
 
 func (s Solver) GetDay() int {
-	return 2
+	return 3
 }
 
 func (s Solver) Part1() (int, error) {

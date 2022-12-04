@@ -9,7 +9,7 @@ import (
 	solver "advent-of-code-2022/SolverInterface"
 )
 
-//go:embed input_large.txt
+//go:embed input.txt
 var inputFile string
 
 type Solver struct {

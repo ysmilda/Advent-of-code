@@ -7,6 +7,7 @@ import (
 	"advent-of-code-2022/day_1"
 	"advent-of-code-2022/day_2"
 	"advent-of-code-2022/day_3"
+	"advent-of-code-2022/day_4"
 
 	solver "advent-of-code-2022/SolverInterface"
 
@@ -17,6 +18,7 @@ var solvers []solver.SolverInterface = []solver.SolverInterface{
 	day_1.Solver{},
 	day_2.Solver{},
 	day_3.Solver{},
+	day_4.Solver{},
 }
 
 func main() {
