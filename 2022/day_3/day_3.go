@@ -3,6 +3,7 @@ package day_3
 import (
 	_ "embed"
 	"errors"
+	"strconv"
 	"strings"
 
 	solver "advent-of-code-2022/SolverInterface"
@@ -59,30 +60,30 @@ func (s Solver) GetDay() int {
 	return 3
 }
 
-func (s Solver) Part1() (int, error) {
+func (s Solver) Part1() (string, error) {
 	count := 0
 	for _, rucksack := range s.Input {
 		common := rucksack.FindCommon()
 		if common == '\000' {
-			return 0, errors.New("No common letter found")
+			return "", errors.New("No common letter found")
 		}
 
 		count += asciiToPriority(common)
 	}
-	return count, nil
+	return strconv.Itoa(count), nil
 }
 
-func (s Solver) Part2() (int, error) {
+func (s Solver) Part2() (string, error) {
 	count := 0
 	for i := 0; i < len(s.Input); i += 3 {
 		common := RuckSackGroup(s.Input[i : i+3]).FindCommon()
 		if common == '\000' {
-			return 0, errors.New("No common letter found")
+			return "", errors.New("No common letter found")
 		}
 
 		count += asciiToPriority(common)
 	}
-	return count, nil
+	return strconv.Itoa(count), nil
 }
 
 func parseInput() ([]Rucksack, error) {

@@ -22,8 +22,6 @@ func (s Solver) GetSolver() (solver.SolverInterface, error) {
 		return Solver{}, err
 	}
 
-	sort.Ints(input)
-
 	return Solver{
 		Input: input,
 	}, nil
@@ -33,14 +31,14 @@ func (s Solver) GetDay() int {
 	return 1
 }
 
-func (s Solver) Part1() (int, error) {
-	return s.Input[len(s.Input)-1], nil
+func (s Solver) Part1() (string, error) {
+	return strconv.Itoa(s.Input[len(s.Input)-1]), nil
 }
 
-func (s Solver) Part2() (int, error) {
+func (s Solver) Part2() (string, error) {
 	lastIndex := len(s.Input) - 1
 	count := s.Input[lastIndex] + s.Input[lastIndex-1] + s.Input[lastIndex-2]
-	return count, nil
+	return strconv.Itoa(count), nil
 }
 
 func parseInput() ([]int, error) {
@@ -61,6 +59,8 @@ func parseInput() ([]int, error) {
 
 		output[index] += value
 	}
+
+	sort.Ints(output)
 
 	return output, nil
 }

@@ -2,6 +2,7 @@ package day_2
 
 import (
 	_ "embed"
+	"strconv"
 	"strings"
 
 	solver "advent-of-code-2022/SolverInterface"
@@ -75,20 +76,20 @@ func (s Solver) GetDay() int {
 	return 2
 }
 
-func (s Solver) Part1() (int, error) {
+func (s Solver) Part1() (string, error) {
 	count := 0
 	for _, move := range s.Input {
 		count += move.outcome1()
 	}
-	return count, nil
+	return strconv.Itoa(count), nil
 }
 
-func (s Solver) Part2() (int, error) {
+func (s Solver) Part2() (string, error) {
 	count := 0
 	for _, move := range s.Input {
 		count += move.outcome2()
 	}
-	return count, nil
+	return strconv.Itoa(count), nil
 }
 
 func parseInput() ([]Move, error) {

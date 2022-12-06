@@ -52,24 +52,24 @@ func (s Solver) GetDay() int {
 	return 4
 }
 
-func (s Solver) Part1() (int, error) {
+func (s Solver) Part1() (string, error) {
 	count := 0
 	for _, ranges := range s.Input {
 		if ranges.FullyContained() {
 			count++
 		}
 	}
-	return count, nil
+	return strconv.Itoa(count), nil
 }
 
-func (s Solver) Part2() (int, error) {
+func (s Solver) Part2() (string, error) {
 	count := 0
 	for _, ranges := range s.Input {
 		if ranges.Overlap() {
 			count++
 		}
 	}
-	return count, nil
+	return strconv.Itoa(count), nil
 }
 
 func parseInput() ([]RangeGroup, error) {
