@@ -28,30 +28,29 @@ var solvers []solver.SolverInterface = []solver.SolverInterface{
 }
 
 func main() {
-	solverFlag := flag.Uint("s", 0, "the solver to run, when set to 0 all solvers will be run")
+	dayFlag := flag.Uint("d", 0, "the day to run, when set to 0 all days will be run")
 	flag.Parse()
 
 	// Normalize flag input
-	solverIndex := int(*solverFlag)
+	day := int(*dayFlag)
 
-	// Program logic
-	// Either do nothing because the requested day is not created yet
-	// Or execute all solvers if the requested day == 0
-	// Or execute the requested day
-	switch {
-
-	case solverIndex > len(solvers):
-		log.WithFields(log.Fields{
-			"solver": solverIndex,
-		}).Fatal("Solution not created yet")
-
-	case solverIndex == 0:
+	switch day {
+	case 0:
 		for _, solver := range solvers {
 			executeSolver(solver)
 		}
 
 	default:
-		executeSolver(solvers[solverIndex-1])
+		for _, solver := range solvers {
+			if solver.GetDay() == day {
+				executeSolver(solver)
+				return
+			}
+		}
+
+		log.WithFields(log.Fields{
+			"day": day,
+		}).Fatal("Day not created yet")
 	}
 }
 
