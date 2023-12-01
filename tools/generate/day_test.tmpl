@@ -1,0 +1,45 @@
+package aoc{{.Year}}day{{.Day}}
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func TestGetDay(t *testing.T) {
+	solver := MustGetSolver()
+	day := solver.GetDay()
+	assert.Equal(t, {{.Day}}, day)
+}
+
+func TestPart1(t *testing.T) {
+	testCases := []struct {
+		input   string
+		outcome int
+	}{}
+
+	for _, tc := range testCases {
+		solver := puzzle{
+			input: parse(tc.input),
+		}
+
+		result, _ := solver.Part1()
+		assert.Equal(t, tc.outcome, result)
+	}
+}
+
+func Test2023Day1Part2(t *testing.T) {
+	testCases := []struct {
+		input   string
+		outcome int
+	}{}
+
+	for _, tc := range testCases {
+		solver := puzzle{
+			input: parse(tc.input),
+		}
+
+		result, _ := solver.Part2()
+		assert.Equal(t, tc.outcome, result)
+	}
+}
