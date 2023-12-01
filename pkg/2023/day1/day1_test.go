@@ -1,4 +1,4 @@
-package aoc2023
+package aoc2023day1
 
 import (
 	"testing"
@@ -7,12 +7,12 @@ import (
 )
 
 func TestGetDay(t *testing.T) {
-	solver := MustGetSolver2023Day1()
+	solver := MustGetSolver()
 	day := solver.GetDay()
 	assert.Equal(t, 1, day)
 }
 
-func Test2023Day1Part1(t *testing.T) {
+func TestPart1(t *testing.T) {
 	testCases := []struct {
 		input   string
 		outcome int
@@ -52,7 +52,7 @@ func Test2023Day1Part1(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		solver := solver2023Day1{
+		solver := puzzle{
 			input: parse(tc.input),
 		}
 
@@ -61,7 +61,7 @@ func Test2023Day1Part1(t *testing.T) {
 	}
 }
 
-func Test2023Day1Part2(t *testing.T) {
+func TestPart2(t *testing.T) {
 	testCases := []struct {
 		input   string
 		outcome int
@@ -101,7 +101,7 @@ func Test2023Day1Part2(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		solver := solver2023Day1{
+		solver := puzzle{
 			input: parse(tc.input),
 		}
 

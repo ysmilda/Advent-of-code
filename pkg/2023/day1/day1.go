@@ -1,4 +1,4 @@
-package aoc2023
+package aoc2023day1
 
 import (
 	_ "embed"
@@ -8,24 +8,24 @@ import (
 	"github.com/ysmilda/Advent-of-code/pkg/utils"
 )
 
-//go:embed inputDay1.txt
+//go:embed input.txt
 var inputFile string
 
-type solver2023Day1 struct {
+type puzzle struct {
 	input []string
 }
 
-func MustGetSolver2023Day1() solver.Solver {
-	return solver2023Day1{
+func MustGetSolver() solver.Solver {
+	return puzzle{
 		input: parse(inputFile),
 	}
 }
 
-func (s solver2023Day1) GetDay() int {
+func (s puzzle) GetDay() int {
 	return 1
 }
 
-func (s solver2023Day1) Part1() (int, error) {
+func (s puzzle) Part1() (int, error) {
 	sum := 0
 	for _, line := range s.input {
 		digits := findDigits(line)
@@ -35,27 +35,7 @@ func (s solver2023Day1) Part1() (int, error) {
 	return sum, nil
 }
 
-var numbers = []string{}
-
-var threeLetterNumbers = map[string]int{
-	"one": 1,
-	"two": 2,
-	"six": 6,
-}
-
-var fourLetterNumbers = map[string]int{
-	"four": 4,
-	"five": 5,
-	"nine": 9,
-}
-
-var fiveLetterNumbers = map[string]int{
-	"three": 3,
-	"seven": 7,
-	"eight": 8,
-}
-
-func (s solver2023Day1) Part2() (int, error) {
+func (s puzzle) Part2() (int, error) {
 	sum := 0
 
 	replacer := strings.NewReplacer("one", "1", "two", "2", "three", "3", "four", "4", "five", "5", "six", "6", "seven", "7", "eight", "8", "nine", "9")

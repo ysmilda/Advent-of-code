@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"time"
 
-	aoc2023 "github.com/ysmilda/Advent-of-code/pkg/2023"
+	aoc2023day1 "github.com/ysmilda/Advent-of-code/pkg/2023/day1"
 	"github.com/ysmilda/Advent-of-code/pkg/solver"
 )
 
 var solvers = map[uint]map[uint]solver.Solver{
 	2023: {
-		1: aoc2023.MustGetSolver2023Day1(),
+		1: aoc2023day1.MustGetSolver(),
 	},
 }
 
