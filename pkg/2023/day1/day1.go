@@ -38,10 +38,8 @@ func (s puzzle) Part1() (int, error) {
 func (s puzzle) Part2() (int, error) {
 	sum := 0
 
-	replacer := strings.NewReplacer("one", "1", "two", "2", "three", "3", "four", "4", "five", "5", "six", "6", "seven", "7", "eight", "8", "nine", "9")
-
 	for _, line := range s.input {
-		line := replacer.Replace(line)
+		line := replace(line)
 		digits := findDigits(line)
 		sum += digits[0]*10 + digits[len(digits)-1]
 	}
@@ -57,6 +55,45 @@ func findDigits(line string) []int {
 		}
 	}
 	return digits
+}
+
+func replace(line string) string {
+	length := len(line)
+	for i := 0; i < length; i++ {
+		if length-i >= 3 {
+			switch line[i : i+3] {
+			case "one":
+				line = line[:i] + "1" + line[i+1:]
+			case "two":
+				line = line[:i] + "2" + line[i+1:]
+			case "six":
+				line = line[:i] + "6" + line[i+1:]
+			}
+		}
+
+		if length-i >= 4 {
+			switch line[i : i+4] {
+			case "four":
+				line = line[:i] + "4" + line[i+1:]
+			case "five":
+				line = line[:i] + "5" + line[i+1:]
+			case "nine":
+				line = line[:i] + "9" + line[i+1:]
+			}
+		}
+
+		if length-i >= 5 {
+			switch line[i : i+5] {
+			case "three":
+				line = line[:i] + "3" + line[i+1:]
+			case "seven":
+				line = line[:i] + "7" + line[i+1:]
+			case "eight":
+				line = line[:i] + "8" + line[i+1:]
+			}
+		}
+	}
+	return line
 }
 
 func parse(input string) []string {
