@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/ysmilda/Advent-of-code/pkg/solver"
+	"github.com/ysmilda/Advent-of-code/pkg/utils"
 )
 
 //go:embed input.txt
@@ -24,6 +25,14 @@ type hand struct {
 	red, green, blue int
 }
 
+func (h hand) isValid(available hand) bool {
+	return h.red <= available.red && h.green <= available.green && h.blue <= available.blue
+}
+
+func (h hand) multiply() int {
+	return h.red * h.green * h.blue
+}
+
 func MustGetSolver() solver.Solver {
 	return puzzle{
 		input: parse(inputFile),
@@ -40,7 +49,7 @@ func (s puzzle) Part1() (int, error) {
 
 	for _, game := range s.input {
 		for _, hand := range game.hands {
-			if hand.red > available.red || hand.green > available.green || hand.blue > available.blue {
+			if !hand.isValid(available) {
 				goto skip
 			}
 		}
@@ -57,17 +66,11 @@ func (s puzzle) Part2() (int, error) {
 	for _, game := range s.input {
 		minimum := hand{0, 0, 0}
 		for _, hand := range game.hands {
-			if hand.red > minimum.red {
-				minimum.red = hand.red
-			}
-			if hand.green > minimum.green {
-				minimum.green = hand.green
-			}
-			if hand.blue > minimum.blue {
-				minimum.blue = hand.blue
-			}
+			minimum.red = utils.Max(hand.red, minimum.red)
+			minimum.green = utils.Max(hand.green, minimum.green)
+			minimum.blue = utils.Max(hand.blue, minimum.blue)
 		}
-		sum += (minimum.red * minimum.blue * minimum.green)
+		sum += minimum.multiply()
 	}
 
 	return sum, nil
@@ -81,41 +84,51 @@ func parse(input string) []game {
 		if line == "" {
 			continue
 		}
+		games = append(games, parseGame(line))
+	}
+	return games
+}
 
-		gameSplit := split(line, ":")
-		id, err := strconv.Atoi(split(gameSplit[0], " ")[1])
+func parseGame(input string) game {
+	colonSplit := split(input, ":")
+	id, err := strconv.Atoi(split(colonSplit[0], " ")[1])
+	if err != nil {
+		panic(err)
+	}
+
+	hands := []hand{}
+	handsString := split(colonSplit[1], ";")
+	for _, handString := range handsString {
+		hands = append(hands, parseHand(handString))
+	}
+
+	return game{
+		id:    id,
+		hands: hands,
+	}
+}
+
+func parseHand(input string) hand {
+	colors := split(input, ",")
+	var red, green, blue int
+	var err error
+
+	for _, color := range colors {
+		colorSplit := split(color, " ")
+
+		switch colorSplit[1] {
+		case "red":
+			red, err = strconv.Atoi(colorSplit[0])
+		case "green":
+			green, err = strconv.Atoi(colorSplit[0])
+		case "blue":
+			blue, err = strconv.Atoi(colorSplit[0])
+		}
 		if err != nil {
 			panic(err)
 		}
-
-		var red, green, blue int
-		hands := []hand{}
-		for _, entry := range split(gameSplit[1], ";") {
-			colors := split(entry, ",")
-
-			for _, color := range colors {
-				colorSplit := split(color, " ")
-
-				switch colorSplit[1] {
-				case "red":
-					red, err = strconv.Atoi(colorSplit[0])
-				case "green":
-					green, err = strconv.Atoi(colorSplit[0])
-				case "blue":
-					blue, err = strconv.Atoi(colorSplit[0])
-				}
-				if err != nil {
-					panic(err)
-				}
-			}
-			hands = append(hands, hand{red, green, blue})
-		}
-		games = append(games, game{
-			id:    id,
-			hands: hands,
-		})
 	}
-	return games
+	return hand{red, green, blue}
 }
 
 func split(s string, sep string) []string {

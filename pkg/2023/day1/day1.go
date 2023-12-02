@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/ysmilda/Advent-of-code/pkg/solver"
-	"github.com/ysmilda/Advent-of-code/pkg/utils"
 )
 
 //go:embed input.txt
@@ -50,8 +49,8 @@ func findDigits(line string) []int {
 	digits := []int{}
 	for i := 0; i < len(line); i++ {
 		char := line[i]
-		if utils.CharIsDigit(char) {
-			digits = append(digits, utils.CharToInt(char))
+		if char >= '0' && char <= '9' {
+			digits = append(digits, int(char)-'0')
 		}
 	}
 	return digits
