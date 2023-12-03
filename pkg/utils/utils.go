@@ -26,3 +26,11 @@ func Abs[T constraints.Integer | constraints.Float](value T) T {
 	}
 	return value
 }
+
+func IsDigit(c byte) bool {
+	return c >= '0' && c <= '9'
+}
+
+func DigitToInt(c byte) int {
+	return int(c - '0')
+}
