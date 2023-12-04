@@ -87,14 +87,14 @@ func parse(input string) []game {
 }
 
 func parseGame(input string) game {
-	colonSplit := split(input, ":")
-	id, err := strconv.Atoi(split(colonSplit[0], " ")[1])
+	colonSplit := strings.Split(input, ":")
+	id, err := strconv.Atoi(strings.Fields(colonSplit[0])[1])
 	if err != nil {
 		panic(err)
 	}
 
 	hands := []hand{}
-	handsString := split(colonSplit[1], ";")
+	handsString := strings.Split(colonSplit[1], ";")
 	for _, handString := range handsString {
 		hands = append(hands, parseHand(handString))
 	}
@@ -106,12 +106,12 @@ func parseGame(input string) game {
 }
 
 func parseHand(input string) hand {
-	colors := split(input, ",")
+	colors := strings.Split(input, ",")
 	var red, green, blue int
 	var err error
 
 	for _, color := range colors {
-		colorSplit := split(color, " ")
+		colorSplit := strings.Fields(color)
 
 		switch colorSplit[1] {
 		case "red":
@@ -126,13 +126,4 @@ func parseHand(input string) hand {
 		}
 	}
 	return hand{red, green, blue}
-}
-
-func split(s string, sep string) []string {
-	entries := strings.Split(s, sep)
-
-	for i := range entries {
-		entries[i] = strings.TrimSpace(entries[i])
-	}
-	return entries
 }

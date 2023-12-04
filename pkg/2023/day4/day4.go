@@ -61,13 +61,9 @@ func parse(input string) []card {
 
 	output := []card{}
 	for _, line := range lines {
-		numbers := strings.Split(line, ":")[1]
-		numbersSplit := strings.Split(numbers, "|")
-
-		winningNumbersSplit := strings.Split(numbersSplit[0], " ")
-		entryNymbersSplit := strings.Split(numbersSplit[1], " ")
-		winningNumbers := convertToNumbers(winningNumbersSplit)
-		entryNumbers := convertToNumbers(entryNymbersSplit)
+		numbersSplit := strings.Split(strings.Split(line, ":")[1], "|")
+		winningNumbers := convertToNumbers(strings.Fields(numbersSplit[0]))
+		entryNumbers := convertToNumbers(strings.Fields(numbersSplit[1]))
 
 		output = append(output, card{
 			instances:       1,
