@@ -61,6 +61,10 @@ func main() {
 		panic(err)
 	}
 
+	if input[len(input)-1] == '\n' {
+		input = input[:len(input)-1]
+	}
+
 	inputFile.Write(input)
 
 	solutionFile, err := os.Create(fmt.Sprintf("%s/day%d.go", path, *day))
