@@ -81,9 +81,6 @@ func parse(input string) []game {
 
 	games := []game{}
 	for _, line := range lines {
-		if line == "" {
-			continue
-		}
 		games = append(games, parseGame(line))
 	}
 	return games

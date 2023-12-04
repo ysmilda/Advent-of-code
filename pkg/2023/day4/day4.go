@@ -61,10 +61,6 @@ func parse(input string) []card {
 
 	output := []card{}
 	for _, line := range lines {
-		if line == "" {
-			continue
-		}
-
 		numbers := strings.Split(line, ":")[1]
 		numbersSplit := strings.Split(numbers, "|")
 
@@ -98,9 +94,6 @@ func convertToNumbers(input []string) []int {
 	output := []int{}
 
 	for _, i := range input {
-		if i == "" {
-			continue
-		}
 		num, err := strconv.Atoi(i)
 		if err != nil {
 			panic(err)
