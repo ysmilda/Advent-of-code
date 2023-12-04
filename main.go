@@ -8,6 +8,7 @@ import (
 	aoc2023day1 "github.com/ysmilda/Advent-of-code/pkg/2023/day1"
 	aoc2023day2 "github.com/ysmilda/Advent-of-code/pkg/2023/day2"
 	aoc2023day3 "github.com/ysmilda/Advent-of-code/pkg/2023/day3"
+	aoc2023day4 "github.com/ysmilda/Advent-of-code/pkg/2023/day4"
 	"github.com/ysmilda/Advent-of-code/pkg/solver"
 )
 
@@ -16,6 +17,7 @@ var solvers = map[uint]map[uint]solver.Solver{
 		1: aoc2023day1.MustGetSolver(),
 		2: aoc2023day2.MustGetSolver(),
 		3: aoc2023day3.MustGetSolver(),
+		4: aoc2023day4.MustGetSolver(),
 	},
 }
 
