@@ -66,9 +66,6 @@ func (s puzzle) Part2() (int, error) {
 
 func parse(input string) ([]int, map[symbol][]int) {
 	lines := strings.Split(input, "\n")
-	if lines[len(lines)-1] == "" {
-		lines = lines[:len(lines)-1]
-	}
 
 	symbols := make(map[symbol][]int)
 	partNumbers := []int{}
@@ -85,7 +82,7 @@ func parse(input string) ([]int, map[symbol][]int) {
 				// Check for symbols around the number
 				for k := i - 1; k <= i+1; k++ {
 					for l := j - 1; l <= j+1; l++ {
-						if k < 0 || l < 0 || k > len(lines)-1 || l > len(lines[i])-1 {
+						if k < 0 || l < 0 || k > len(lines)-1 || l > len(lines[k])-1 {
 							continue
 						}
 
