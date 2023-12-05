@@ -13,19 +13,25 @@ import (
 	"github.com/ysmilda/Advent-of-code/pkg/solver"
 )
 
-var solvers = map[uint]map[uint]solver.Solver{
-	2023: {
-		1: aoc2023day1.MustGetSolver(),
-		2: aoc2023day2.MustGetSolver(),
-		3: aoc2023day3.MustGetSolver(),
-		4: aoc2023day4.MustGetSolver(),
-		5: aoc2023day5.MustGetSolver(),
-	},
+var solvers map[int]map[int]solver.Solver
+
+func init() {
+	start := time.Now()
+	solvers = map[int]map[int]solver.Solver{
+		2023: {
+			1: aoc2023day1.MustGetSolver(),
+			2: aoc2023day2.MustGetSolver(),
+			3: aoc2023day3.MustGetSolver(),
+			4: aoc2023day4.MustGetSolver(),
+			5: aoc2023day5.MustGetSolver(),
+		},
+	}
+	printParseTime(time.Since(start))
 }
 
 func main() {
-	year := flag.Uint("year", 2023, "the year to run, when set to 0 all years will be run")
-	day := flag.Uint("day", 0, "the solver to run, when set to 0 all solvers will be run")
+	year := flag.Int("year", 2023, "the year to run")
+	day := flag.Int("day", 0, "the solver to run, when set to 0 all solvers will be run")
 	flag.Parse()
 
 	s, ok := solvers[*year]
@@ -47,21 +53,34 @@ func main() {
 }
 
 func executeSolver(solver solver.Solver) {
+	printDay(solver.GetDay())
+
 	start := time.Now()
-
-	solutionPart1, err := solver.Part1()
+	solution, err := solver.Part1()
 	if err != nil {
 		fmt.Printf("Failed to solve part 1 of day %d: %s\n", solver.GetDay(), err)
 	}
 
-	durationPart1 := time.Since(start)
+	dur := time.Since(start)
+	printPart(1, solution, dur)
 
-	solutionPart2, err := solver.Part2()
+	solution, err = solver.Part2()
 	if err != nil {
 		fmt.Printf("Failed to solve part 1 of day %d: %s\n", solver.GetDay(), err)
 	}
 
-	durationPart2 := time.Since(start) - durationPart1
+	dur = time.Since(start) - dur
+	printPart(2, solution, dur)
+}
 
-	fmt.Printf("Day %d:\n\tPart 1:\n\t\tsolution: %d\n\t\truntime: %s\n\tPart 2:\n\t\tsolution: %d\n\t\truntime: %s\n", solver.GetDay(), solutionPart1, durationPart1.String(), solutionPart2, durationPart2.String())
+func printParseTime(dur time.Duration) {
+	fmt.Printf("parse time: %s\n", dur.String())
+}
+
+func printDay(day int) {
+	fmt.Printf("Day %d:\n", day)
+}
+
+func printPart(part int, solution int, duration time.Duration) {
+	fmt.Printf("\tPart %d:\n\t\tsolution: %d\n\t\truntime: %s\n", part, solution, duration.String())
 }
