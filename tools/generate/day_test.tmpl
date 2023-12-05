@@ -2,9 +2,13 @@ package aoc{{.Year}}day{{.Day}}
 
 import (
 	"testing"
+	_ "embed"
 
 	"github.com/stretchr/testify/assert"
 )
+
+//go:embed testinput.txt
+var testInput string
 
 func TestGetDay(t *testing.T) {
 	solver := MustGetSolver()
@@ -13,33 +17,19 @@ func TestGetDay(t *testing.T) {
 }
 
 func TestPart1(t *testing.T) {
-	testCases := []struct {
-		input   string
-		outcome int
-	}{}
-
-	for _, tc := range testCases {
-		solver := puzzle{
-			input: parse(tc.input),
-		}
-
-		result, _ := solver.Part1()
-		assert.Equal(t, tc.outcome, result)
+	solver := puzzle{
+		input: parse(testInput),
 	}
+
+	result, _ := solver.Part1()
+	assert.Equal(t, 0, result)
 }
 
 func Test2023Day1Part2(t *testing.T) {
-	testCases := []struct {
-		input   string
-		outcome int
-	}{}
-
-	for _, tc := range testCases {
-		solver := puzzle{
-			input: parse(tc.input),
-		}
-
-		result, _ := solver.Part2()
-		assert.Equal(t, tc.outcome, result)
+	solver := puzzle{
+		input: parse(testInput),
 	}
+
+	result, _ := solver.Part2()
+	assert.Equal(t, 0, result)
 }

@@ -93,4 +93,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	testInputFile, err := os.Create(fmt.Sprintf("%s/testinput.txt", path))
+	if err != nil {
+		panic(err)
+	}
+	defer testInputFile.Close()
 }

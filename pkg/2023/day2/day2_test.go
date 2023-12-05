@@ -8,7 +8,7 @@ import (
 )
 
 //go:embed testinput.txt
-var testInputFile string
+var testInput string
 
 func TestGetDay(t *testing.T) {
 	solver := MustGetSolver()
@@ -18,7 +18,7 @@ func TestGetDay(t *testing.T) {
 
 func TestPart1(t *testing.T) {
 	solver := puzzle{
-		input: parse(testInputFile),
+		input: parse(testInput),
 	}
 
 	result, _ := solver.Part1()
@@ -27,7 +27,7 @@ func TestPart1(t *testing.T) {
 
 func Test2023Day1Part2(t *testing.T) {
 	solver := puzzle{
-		input: parse(testInputFile),
+		input: parse(testInput),
 	}
 
 	result, _ := solver.Part2()
