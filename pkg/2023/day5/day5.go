@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/ysmilda/Advent-of-code/pkg/solver"
 )
@@ -16,14 +17,16 @@ type puzzle struct {
 }
 
 type garden struct {
-	seeds                 []int
-	seedToSoil            []mapping
-	soilToFertilizer      []mapping
-	fertilizerToWater     []mapping
-	waterToLight          []mapping
-	lightToTemperature    []mapping
-	temperatureToHumidity []mapping
-	humidityToLocation    []mapping
+	seeds    []int
+	mappings [][]mapping
+
+	// seedToSoil            []mapping
+	// soilToFertilizer      []mapping
+	// fertilizerToWater     []mapping
+	// waterToLight          []mapping
+	// lightToTemperature    []mapping
+	// temperatureToHumidity []mapping
+	// humidityToLocation    []mapping
 }
 
 type mapping struct {
@@ -46,16 +49,13 @@ func (s puzzle) Part1() (int, error) {
 	lowest := 1 << 32
 
 	for _, seed := range s.input.seeds {
-		soil := getDestination(seed, s.input.seedToSoil)
-		fertilizer := getDestination(soil, s.input.soilToFertilizer)
-		water := getDestination(fertilizer, s.input.fertilizerToWater)
-		light := getDestination(water, s.input.waterToLight)
-		temperature := getDestination(light, s.input.lightToTemperature)
-		humidity := getDestination(temperature, s.input.temperatureToHumidity)
-		location := getDestination(humidity, s.input.humidityToLocation)
+		input := seed
+		for _, m := range s.input.mappings {
+			input = getDestination(input, m)
+		}
 
-		if location < lowest {
-			lowest = location
+		if input < lowest {
+			lowest = input
 		}
 	}
 
@@ -63,24 +63,35 @@ func (s puzzle) Part1() (int, error) {
 }
 
 func (s puzzle) Part2() (int, error) {
+	mu := sync.Mutex{}
+	wg := sync.WaitGroup{}
 	lowest := 1 << 32
 
 	for i := 0; i < len(s.input.seeds); i += 2 {
-		for j := 0; j < s.input.seeds[i+1]; j++ {
-			soil := getDestination(s.input.seeds[i]+j, s.input.seedToSoil)
-			fertilizer := getDestination(soil, s.input.soilToFertilizer)
-			water := getDestination(fertilizer, s.input.fertilizerToWater)
-			light := getDestination(water, s.input.waterToLight)
-			temperature := getDestination(light, s.input.lightToTemperature)
-			humidity := getDestination(temperature, s.input.temperatureToHumidity)
-			location := getDestination(humidity, s.input.humidityToLocation)
+		wg.Add(1)
+		go func(seed, rng int) {
+			localLowest := 1 << 32
+			for j := 0; j < rng; j++ {
+				input := seed + j
+				for _, m := range s.input.mappings {
+					input = getDestination(input, m)
+				}
 
-			if location < lowest {
-				lowest = location
+				if input < localLowest {
+					localLowest = input
+				}
 			}
 
-		}
+			mu.Lock()
+			if localLowest < lowest {
+				lowest = localLowest
+			}
+			mu.Unlock()
+			wg.Done()
+		}(s.input.seeds[i], s.input.seeds[i+1])
 	}
+
+	wg.Wait()
 
 	return lowest, nil
 }
@@ -88,42 +99,19 @@ func (s puzzle) Part2() (int, error) {
 func parse(input string) garden {
 	lines := strings.Split(input, "\n")
 
-	garden := garden{}
-	var target *[]mapping
+	garden := garden{
+		seeds: toInt(strings.Fields(strings.Split(lines[0], ":")[1])),
+	}
 
-	for i, line := range lines {
-		if i == 0 {
-			garden.seeds = toInt(strings.Fields(strings.Split(line, ":")[1]))
-			continue
-		}
-
+	for _, line := range lines[1:] {
 		if line == "" {
-			target = nil
 			continue
 		}
-
-		switch strings.Fields(line)[0] {
-		case "seed-to-soil":
-			target = &garden.seedToSoil
-		case "soil-to-fertilizer":
-			target = &garden.soilToFertilizer
-		case "fertilizer-to-water":
-			target = &garden.fertilizerToWater
-		case "water-to-light":
-			target = &garden.waterToLight
-		case "light-to-temperature":
-			target = &garden.lightToTemperature
-		case "temperature-to-humidity":
-			target = &garden.temperatureToHumidity
-		case "humidity-to-location":
-			target = &garden.humidityToLocation
-		default:
-			if target == nil {
-				panic("invalid input")
-			}
-			*target = append(*target, parseRange(line))
-
+		if line[len(line)-1] == ':' {
+			garden.mappings = append(garden.mappings, []mapping{})
+			continue
 		}
+		garden.mappings[len(garden.mappings)-1] = append(garden.mappings[len(garden.mappings)-1], parseRange(line))
 	}
 
 	return garden
