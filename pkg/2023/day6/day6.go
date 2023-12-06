@@ -2,6 +2,7 @@ package aoc2023day6
 
 import (
 	_ "embed"
+	"math"
 	"strconv"
 	"strings"
 
@@ -21,17 +22,13 @@ type race struct {
 }
 
 func (r race) findNumberOfWaysToWin() int {
-	lowest := 0
+	t := float64(r.time)
+	d := float64(r.distance)
 
-	for i := r.distance / r.time; i < r.time; i++ {
-		distance := (r.time - i) * i
-		if distance > r.distance {
-			lowest = i
-			break
-		}
-	}
-
-	return ((r.time - lowest) - lowest) + 1
+	dSqrt := math.Sqrt((t * t) - (4 * d))
+	p1 := (-t + dSqrt) / -2
+	p2 := (-t - dSqrt) / -2
+	return int(math.Ceil(p2) - math.Floor(p1) - 1)
 }
 
 func MustGetSolver() solver.Solver {
