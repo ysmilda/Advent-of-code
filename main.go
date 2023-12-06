@@ -10,6 +10,7 @@ import (
 	aoc2023day3 "github.com/ysmilda/Advent-of-code/pkg/2023/day3"
 	aoc2023day4 "github.com/ysmilda/Advent-of-code/pkg/2023/day4"
 	aoc2023day5 "github.com/ysmilda/Advent-of-code/pkg/2023/day5"
+	aoc2023day6 "github.com/ysmilda/Advent-of-code/pkg/2023/day6"
 	"github.com/ysmilda/Advent-of-code/pkg/solver"
 )
 
@@ -24,6 +25,7 @@ func init() {
 			3: aoc2023day3.MustGetSolver(),
 			4: aoc2023day4.MustGetSolver(),
 			5: aoc2023day5.MustGetSolver(),
+			6: aoc2023day6.MustGetSolver(),
 		},
 	}
 	printParseTime(time.Since(start))
