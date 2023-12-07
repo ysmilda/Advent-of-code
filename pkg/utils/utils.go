@@ -1,6 +1,10 @@
 package utils
 
-import "golang.org/x/exp/constraints"
+import (
+	"strconv"
+
+	"golang.org/x/exp/constraints"
+)
 
 func Min[T constraints.Integer | constraints.Float](a, b T) T {
 	if a < b {
@@ -33,4 +37,12 @@ func IsDigit(c byte) bool {
 
 func DigitToInt(c byte) int {
 	return int(c - '0')
+}
+
+func MustToInt(input string) int {
+	output, err := strconv.Atoi(input)
+	if err != nil {
+		panic(err)
+	}
+	return output
 }
