@@ -2,11 +2,11 @@ package aoc2023day5
 
 import (
 	_ "embed"
-	"strconv"
 	"strings"
 	"sync"
 
 	"github.com/ysmilda/Advent-of-code/pkg/solver"
+	"github.com/ysmilda/Advent-of-code/pkg/utils"
 )
 
 //go:embed input.txt
@@ -19,14 +19,6 @@ type puzzle struct {
 type garden struct {
 	seeds    []int
 	mappings [][]mapping
-
-	// seedToSoil            []mapping
-	// soilToFertilizer      []mapping
-	// fertilizerToWater     []mapping
-	// waterToLight          []mapping
-	// lightToTemperature    []mapping
-	// temperatureToHumidity []mapping
-	// humidityToLocation    []mapping
 }
 
 type mapping struct {
@@ -132,11 +124,7 @@ func parseRange(input string) mapping {
 
 func toInt(input []string) (output []int) {
 	for _, value := range input {
-		val, err := strconv.Atoi(value)
-		if err != nil {
-			panic(err)
-		}
-		output = append(output, val)
+		output = append(output, utils.MustToInt(value))
 	}
 	return output
 }
