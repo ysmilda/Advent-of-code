@@ -25,7 +25,7 @@ func TestPart1(t *testing.T) {
 	assert.Equal(t, 288, result)
 }
 
-func Test2023Day1Part2(t *testing.T) {
+func TestPart2(t *testing.T) {
 	solver := puzzle{
 		input: parse(testInput),
 	}
