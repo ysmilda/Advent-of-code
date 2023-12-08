@@ -9,20 +9,8 @@ import (
 	"github.com/ysmilda/Advent-of-code/pkg/utils"
 )
 
-type cardStrength uint
-
-const (
-	highCard cardStrength = iota + 1
-	onePair
-	twoPair
-	threeOfAKind
-	fullHouse
-	fourOfAKind
-	fiveOfAKind
-)
-
 type hand struct {
-	strength cardStrength
+	strength int
 	value    int
 	bid      int
 }
@@ -79,52 +67,30 @@ func parseHand(line string, useJokers bool, values string) hand {
 	parts := strings.Fields(line)
 
 	cards := make(map[byte]int)
-	value := 0
+	cardValue := 0
+	cardStrength := 0
+	highest := 0
+
 	for _, c := range parts[0] {
 		cards[byte(c)]++
-		value = (value + strings.IndexByte(values, byte(c))) * 100
+		cardValue = (cardValue + strings.IndexByte(values, byte(c))) * 100
+
+		val := cards[byte(c)]
+		cardStrength += val
+		if val > highest && c != 'J' {
+			highest = val
+		}
 	}
 
-	jokers := cards['J']
 	if useJokers {
-		delete(cards, 'J')
-	}
-	cardStrength := highCard
-	pairs := 0
-	threeOfAKindFound := false
-	for _, v := range cards {
-		if useJokers {
-			v += jokers
-		}
-		switch v {
-		case 5:
-			cardStrength = fiveOfAKind
-			break
-		case 4:
-			cardStrength = fourOfAKind
-			break
-		case 3:
-			threeOfAKindFound = true
-		case 2:
-			pairs++
-		}
-	}
-	if cardStrength == highCard {
-		if threeOfAKindFound && pairs == 1 {
-			cardStrength = fullHouse
-		} else if threeOfAKindFound {
-			cardStrength = threeOfAKind
-		} else if pairs == 2 {
-			cardStrength = twoPair
-		} else if pairs == 1 {
-			cardStrength = onePair
-		}
+		jokers := cards['J']
+		cardStrength += (jokers * highest)
 	}
 
 	return hand{
 		bid:      utils.MustToInt(parts[1]),
 		strength: cardStrength,
-		value:    value,
+		value:    cardValue,
 	}
 }
 
