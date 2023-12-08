@@ -45,6 +45,10 @@ func main() {
 	}
 
 	path := fmt.Sprintf("./pkg/%d/day%d", *year, *day)
+	if _, err := os.ReadDir(path); err == nil {
+		panic(fmt.Errorf("day %d already exists", *day))
+	}
+
 	err = os.MkdirAll(path, 0o755)
 	if err != nil {
 		panic(err)
