@@ -44,7 +44,7 @@ func TestPart1(t *testing.T) {
 		instructions, mapping := parse(tc.input)
 		solver := puzzle{
 			instructions: instructions,
-			mapping:      mapping,
+			directions:   mapping,
 		}
 
 		result, _ := solver.Part1()
@@ -76,7 +76,7 @@ func TestPart2(t *testing.T) {
 		instructions, mapping := parse(tc.input)
 		solver := puzzle{
 			instructions: instructions,
-			mapping:      mapping,
+			directions:   mapping,
 		}
 
 		result, _ := solver.Part2()

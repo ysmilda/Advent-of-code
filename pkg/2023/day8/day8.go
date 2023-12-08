@@ -13,7 +13,7 @@ var inputFile string
 
 type puzzle struct {
 	instructions string
-	mapping      map[string]instruction
+	directions   map[string]instruction
 }
 
 type instruction struct {
@@ -21,11 +21,21 @@ type instruction struct {
 	right string
 }
 
+func (i instruction) Follow(direction byte) string {
+	switch direction {
+	case 'L':
+		return i.left
+	case 'R':
+		return i.right
+	}
+	panic("invalid direction")
+}
+
 func MustGetSolver() solver.Solver {
 	instructions, mapping := parse(inputFile)
 	return puzzle{
 		instructions: instructions,
-		mapping:      mapping,
+		directions:   mapping,
 	}
 }
 
@@ -39,12 +49,7 @@ func (s puzzle) Part1() (int, error) {
 	node := "AAA"
 
 	for {
-		switch s.instructions[stepIndex] {
-		case 'L':
-			node = s.mapping[node].left
-		case 'R':
-			node = s.mapping[node].right
-		}
+		node = s.directions[node].Follow(s.instructions[stepIndex])
 		if node == "ZZZ" {
 			break
 		}
@@ -60,48 +65,40 @@ func (s puzzle) Part1() (int, error) {
 }
 
 func (s puzzle) Part2() (int, error) {
-	stepIndex := 0
-
 	nodes := []string{}
-	for node := range s.mapping {
+	for node := range s.directions {
 		if node[2] == 'A' {
 			nodes = append(nodes, node)
 		}
 	}
 
-	nodeCounts := make([]int, len(nodes))
-	finishedNodes := make([]bool, len(nodes))
-	for {
-		for i := 0; i < len(nodes); i++ {
-			if finishedNodes[i] {
-				continue
-			}
-			switch s.instructions[stepIndex] {
-			case 'L':
-				nodes[i] = s.mapping[nodes[i]].left
-			case 'R':
-				nodes[i] = s.mapping[nodes[i]].right
-			}
-			nodeCounts[i]++
-			if nodes[i][2] == 'Z' {
-				finishedNodes[i] = true
-			}
-		}
+	counts := make(chan int)
+	for _, node := range nodes {
+		node := node
 
-		allFinished := true
-		for _, finished := range finishedNodes {
-			if !finished {
-				allFinished = false
-				break
+		go func() {
+			count := 0
+			step := 0
+			for {
+				node = s.directions[node].Follow(s.instructions[step])
+				count++
+				if node[2] == 'Z' {
+					break
+				}
+				step++
+				if step >= len(s.instructions) {
+					step = 0
+				}
 			}
-		}
-		if allFinished {
+			counts <- count
+		}()
+	}
+
+	nodeCounts := []int{}
+	for count := range counts {
+		nodeCounts = append(nodeCounts, count)
+		if len(nodeCounts) == len(nodes) {
 			break
-		}
-
-		stepIndex++
-		if stepIndex >= len(s.instructions) {
-			stepIndex = 0
 		}
 	}
 
