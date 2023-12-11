@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ysmilda/Advent-of-code/pkg/solver"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/solver"
 )
 
 var solvers map[int]map[int]solver.Solver

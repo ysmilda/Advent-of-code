@@ -4,8 +4,8 @@ import (
 	_ "embed"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/pkg/solver"
-	"github.com/ysmilda/Advent-of-code/pkg/utils"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/char"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/solver"
 )
 
 //go:embed input.txt
@@ -49,9 +49,9 @@ func (s puzzle) Part2() (int, error) {
 func findDigits(line string) []int {
 	digits := []int{}
 	for i := 0; i < len(line); i++ {
-		char := line[i]
-		if utils.IsDigit(char) {
-			digits = append(digits, utils.DigitToInt(char))
+		c := line[i]
+		if char.IsDigit(c) {
+			digits = append(digits, char.DigitToInt(c))
 		}
 	}
 	return digits

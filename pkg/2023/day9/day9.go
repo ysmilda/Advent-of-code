@@ -4,8 +4,8 @@ import (
 	_ "embed"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/pkg/solver"
-	"github.com/ysmilda/Advent-of-code/pkg/utils"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/char"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/solver"
 )
 
 //go:embed input.txt
@@ -117,7 +117,7 @@ func parse(input string) (output []sequence) {
 
 func toInts(input []string) (output []int) {
 	for _, i := range input {
-		output = append(output, utils.MustToInt(i))
+		output = append(output, char.MustToInt(i))
 	}
 	return output
 }

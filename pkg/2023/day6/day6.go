@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/pkg/solver"
-	"github.com/ysmilda/Advent-of-code/pkg/utils"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/char"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/solver"
 )
 
 //go:embed input.txt
@@ -63,8 +63,8 @@ func (s puzzle) Part2() (int, error) {
 	}
 
 	combinedRace := race{
-		time:     utils.MustToInt(tempTime),
-		distance: utils.MustToInt(tempDistance),
+		time:     char.MustToInt(tempTime),
+		distance: char.MustToInt(tempDistance),
 	}
 
 	return combinedRace.findNumberOfWaysToWin(), nil
@@ -83,8 +83,8 @@ func parse(input string) (output []race) {
 			continue
 		}
 		output = append(output, race{
-			time:     utils.MustToInt(times[i]),
-			distance: utils.MustToInt(distances[i]),
+			time:     char.MustToInt(times[i]),
+			distance: char.MustToInt(distances[i]),
 		})
 	}
 

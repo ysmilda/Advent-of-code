@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/pkg/solver"
-	"github.com/ysmilda/Advent-of-code/pkg/utils"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/aocmath"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/solver"
 )
 
 //go:embed input.txt
@@ -66,9 +66,9 @@ func (s puzzle) Part2() (int, error) {
 	for _, game := range s.input {
 		minimum := hand{0, 0, 0}
 		for _, hand := range game.hands {
-			minimum.red = utils.Max(hand.red, minimum.red)
-			minimum.green = utils.Max(hand.green, minimum.green)
-			minimum.blue = utils.Max(hand.blue, minimum.blue)
+			minimum.red = aocmath.Max(hand.red, minimum.red)
+			minimum.green = aocmath.Max(hand.green, minimum.green)
+			minimum.blue = aocmath.Max(hand.blue, minimum.blue)
 		}
 		sum += minimum.multiply()
 	}

@@ -1,4 +1,4 @@
-package utils
+package aocmath
 
 import "golang.org/x/exp/constraints"
 

@@ -5,8 +5,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ysmilda/Advent-of-code/pkg/solver"
-	"github.com/ysmilda/Advent-of-code/pkg/utils"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/char"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/solver"
 )
 
 //go:embed input.txt
@@ -124,7 +124,7 @@ func parseRange(input string) mapping {
 
 func toInt(input []string) (output []int) {
 	for _, value := range input {
-		output = append(output, utils.MustToInt(value))
+		output = append(output, char.MustToInt(value))
 	}
 	return output
 }

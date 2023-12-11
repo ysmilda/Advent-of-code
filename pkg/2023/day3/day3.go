@@ -4,8 +4,8 @@ import (
 	_ "embed"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/pkg/solver"
-	"github.com/ysmilda/Advent-of-code/pkg/utils"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/char"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/solver"
 )
 
 //go:embed input.txt
@@ -76,8 +76,8 @@ func parse(input string) ([]int, map[symbol][]int) {
 		foundSymbols := make(map[symbol]any)
 
 		for j := 0; j < len(lines[i]); j++ {
-			if utils.IsDigit(lines[i][j]) {
-				partNumber = partNumber*10 + utils.DigitToInt(lines[i][j])
+			if char.IsDigit(lines[i][j]) {
+				partNumber = partNumber*10 + char.DigitToInt(lines[i][j])
 
 				// Check for symbols around the number
 				for k := i - 1; k <= i+1; k++ {
@@ -86,7 +86,7 @@ func parse(input string) ([]int, map[symbol][]int) {
 							continue
 						}
 
-						if lines[k][l] != '.' && !utils.IsDigit(lines[k][l]) {
+						if lines[k][l] != '.' && !char.IsDigit(lines[k][l]) {
 							foundSymbols[symbol{
 								symbol: lines[k][l],
 								x:      k,

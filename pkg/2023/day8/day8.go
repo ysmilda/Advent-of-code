@@ -4,8 +4,8 @@ import (
 	_ "embed"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/pkg/solver"
-	"github.com/ysmilda/Advent-of-code/pkg/utils"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/aocmath"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/solver"
 )
 
 //go:embed input.txt
@@ -102,7 +102,7 @@ func (s puzzle) Part2() (int, error) {
 		}
 	}
 
-	return utils.LCMs(nodeCounts...), nil
+	return aocmath.LCMs(nodeCounts...), nil
 }
 
 func parse(input string) (string, map[string]instruction) {

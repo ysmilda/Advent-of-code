@@ -5,8 +5,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/pkg/solver"
-	"github.com/ysmilda/Advent-of-code/pkg/utils"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/char"
+	"github.com/ysmilda/Advent-of-code/pkg/utils/solver"
 )
 
 type hand struct {
@@ -88,7 +88,7 @@ func parseHand(line string, useJokers bool, values string) hand {
 	}
 
 	return hand{
-		bid:      utils.MustToInt(parts[1]),
+		bid:      char.MustToInt(parts[1]),
 		strength: cardStrength,
 		value:    cardValue,
 	}
