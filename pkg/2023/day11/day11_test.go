@@ -16,20 +16,22 @@ func TestGetDay(t *testing.T) {
 	assert.Equal(t, 11, day)
 }
 
-func TestPart1(t *testing.T) {
+func TestCalculateDistances(t *testing.T) {
+	testCases := []struct {
+		step     int
+		expected int
+	}{
+		{2, 374},
+		{10, 1030},
+		{100, 8410},
+	}
+
 	solver := puzzle{
 		grid: parse(testInput),
 	}
 
-	result, _ := solver.Part1()
-	assert.Equal(t, 374, result)
-}
-
-func TestPart2(t *testing.T) {
-	solver := puzzle{
-		grid: parse(testInput),
+	for _, tc := range testCases {
+		result := solver.CalculateDistances(tc.step)
+		assert.Equal(t, tc.expected, result)
 	}
-
-	result, _ := solver.Part2()
-	assert.Equal(t, 0, result)
 }

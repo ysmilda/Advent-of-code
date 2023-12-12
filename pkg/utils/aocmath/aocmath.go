@@ -22,6 +22,14 @@ func Limit[T constraints.Integer | constraints.Float](value, min, max T) T {
 	return Min(Max(value, min), max)
 }
 
+func Between[T constraints.Integer | constraints.Float](value, a, b T) bool {
+	return value > Min(a, b) && value < Max(a, b)
+}
+
+func BetweenInclusive[T constraints.Integer | constraints.Float](value, a, b T) bool {
+	return value >= Min(a, b) && value <= Max(a, b)
+}
+
 func Abs[T constraints.Integer | constraints.Float](value T) T {
 	if value < 0 {
 		return -value

@@ -51,6 +51,43 @@ func TestLimit(t *testing.T) {
 	}
 }
 
+func TestBetween(t *testing.T) {
+	testCases := []struct {
+		value, a, b int
+		expected    bool
+	}{
+		{5, 0, 10, true},
+		{-3, 0, 10, false},
+		{15, 0, 10, false},
+		{5, 10, 0, true},
+		{5, 5, 10, false},
+	}
+
+	for _, tc := range testCases {
+		result := Between(tc.value, tc.a, tc.b)
+		assert.Equal(t, tc.expected, result)
+	}
+}
+
+func TestBetweenInclusive(t *testing.T) {
+	testCases := []struct {
+		value, a, b int
+		expected    bool
+	}{
+		{5, 0, 10, true},
+		{-3, 0, 10, false},
+		{15, 0, 10, false},
+		{5, 10, 0, true},
+		{5, 5, 10, true},
+		{5, 0, 5, true},
+	}
+
+	for _, tc := range testCases {
+		result := BetweenInclusive(tc.value, tc.a, tc.b)
+		assert.Equal(t, tc.expected, result)
+	}
+}
+
 func TestAbs(t *testing.T) {
 	testInts := []struct {
 		value, expected int
