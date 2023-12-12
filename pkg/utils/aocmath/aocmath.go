@@ -1,6 +1,8 @@
 package aocmath
 
-import "golang.org/x/exp/constraints"
+import (
+	"golang.org/x/exp/constraints"
+)
 
 func Min[T constraints.Integer | constraints.Float](a, b T) T {
 	if a < b {
@@ -43,6 +45,9 @@ func GCDs[T constraints.Integer](values ...T) T {
 }
 
 func LCM[T constraints.Integer](a, b T) T {
+	if a == 0 || b == 0 {
+		panic("LCM of 0 is undefined")
+	}
 	return a * b / GCD(a, b)
 }
 

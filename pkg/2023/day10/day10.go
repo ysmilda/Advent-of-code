@@ -17,7 +17,7 @@ type puzzle struct {
 
 func (s puzzle) Next(previous grid.Coordinate, current grid.Coordinate) grid.Coordinate {
 	d := grid.GetDirection(previous, current)
-	pipe := s.grid.Get(current.X, current.Y)
+	pipe := s.grid.GetCoordinate(current)
 	switch pipe {
 	case '|':
 		if d.North() || d.South() {
@@ -63,7 +63,7 @@ func (s puzzle) Next(previous grid.Coordinate, current grid.Coordinate) grid.Coo
 
 	case 'S':
 		next := grid.Coordinate{}
-		validate := func(x, y uint) bool {
+		validate := func(x, y int) bool {
 			next = grid.NewCoordinate(x, y)
 			if s.grid.Valid(next) {
 				d := grid.GetDirection(current, next)
@@ -147,7 +147,6 @@ func (s puzzle) Part2() (int, error) {
 
 func parse(input string) grid.Grid[byte] {
 	lines := strings.Split(input, "\n")
-
 	output := grid.NewGrid[byte](uint(len(lines[0])), uint(len(lines)))
 
 	for i, line := range lines {
