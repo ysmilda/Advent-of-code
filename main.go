@@ -20,10 +20,11 @@ func main() {
 		panic("Year not implemented yet")
 	}
 
-	ran := true
+	ran := false
 	for _, solver := range s {
 		if solver.GetDay() == *day || *day == 0 {
 			executeSolver(solver)
+			ran = true
 		}
 	}
 
