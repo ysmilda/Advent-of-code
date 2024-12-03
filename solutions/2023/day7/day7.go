@@ -5,7 +5,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/foundation/char"
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 	"github.com/ysmilda/Advent-of-code/foundation/solver"
 )
 
@@ -88,7 +88,7 @@ func parseHand(line string, useJokers bool, values string) hand {
 	}
 
 	return hand{
-		bid:      char.MustToInt(parts[1]),
+		bid:      aocstrconv.MustAtoi(parts[1]),
 		strength: cardStrength,
 		value:    cardValue,
 	}

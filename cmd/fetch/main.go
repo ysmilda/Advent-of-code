@@ -7,7 +7,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strconv"
+
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 )
 
 func main() {
@@ -47,15 +48,8 @@ func main() {
 				continue
 			}
 
-			yearInt, err := strconv.Atoi(year.Name())
-			if err != nil {
-				panic(err)
-			}
-
-			dayInt, err := strconv.Atoi(day.Name()[3:])
-			if err != nil {
-				panic(err)
-			}
+			yearInt := aocstrconv.MustAtoi(year.Name())
+			dayInt := aocstrconv.MustAtoi(day.Name()[3:])
 
 			fmt.Printf("Fetching input for %d day %d\n", yearInt, dayInt)
 

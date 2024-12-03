@@ -4,10 +4,10 @@ import (
 	_ "embed"
 	"errors"
 	"slices"
-	"strconv"
 	"strings"
 
 	"github.com/ysmilda/Advent-of-code/foundation/aocmath"
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 	"github.com/ysmilda/Advent-of-code/foundation/solver"
 )
 
@@ -72,19 +72,8 @@ func parse(input string) (left []int, right []int) {
 		}
 
 		elements := strings.Split(line, "  ")
-
-		l, err := strconv.Atoi(strings.TrimSpace(elements[0]))
-		if err != nil {
-			panic(err)
-		}
-
-		r, err := strconv.Atoi(strings.TrimSpace(elements[1]))
-		if err != nil {
-			panic(err)
-		}
-
-		left = append(left, l)
-		right = append(right, r)
+		left = append(left, aocstrconv.MustAtoi(strings.TrimSpace(elements[0])))
+		right = append(right, aocstrconv.MustAtoi(strings.TrimSpace(elements[1])))
 	}
 
 	return left, right

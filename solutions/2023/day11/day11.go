@@ -111,7 +111,7 @@ func parse(input string) grid.Grid[bool] {
 
 	for i, line := range lines {
 		for j, char := range line {
-			output.Set(uint(j), uint(i), char == '#')
+			output.Set(grid.NewCoordinate(j, i), char == '#')
 		}
 	}
 	return output

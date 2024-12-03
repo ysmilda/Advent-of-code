@@ -2,10 +2,10 @@ package aoc2023day2
 
 import (
 	_ "embed"
-	"strconv"
 	"strings"
 
 	"github.com/ysmilda/Advent-of-code/foundation/aocmath"
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 	"github.com/ysmilda/Advent-of-code/foundation/solver"
 )
 
@@ -88,10 +88,7 @@ func parse(input string) []game {
 
 func parseGame(input string) game {
 	colonSplit := strings.Split(input, ":")
-	id, err := strconv.Atoi(strings.Fields(colonSplit[0])[1])
-	if err != nil {
-		panic(err)
-	}
+	id := aocstrconv.MustAtoi(strings.Fields(colonSplit[0])[1])
 
 	hands := []hand{}
 	handsString := strings.Split(colonSplit[1], ";")
@@ -108,21 +105,17 @@ func parseGame(input string) game {
 func parseHand(input string) hand {
 	colors := strings.Split(input, ",")
 	var red, green, blue int
-	var err error
 
 	for _, color := range colors {
 		colorSplit := strings.Fields(color)
 
 		switch colorSplit[1] {
 		case "red":
-			red, err = strconv.Atoi(colorSplit[0])
+			red = aocstrconv.MustAtoi(colorSplit[0])
 		case "green":
-			green, err = strconv.Atoi(colorSplit[0])
+			green = aocstrconv.MustAtoi(colorSplit[0])
 		case "blue":
-			blue, err = strconv.Atoi(colorSplit[0])
-		}
-		if err != nil {
-			panic(err)
+			blue = aocstrconv.MustAtoi(colorSplit[0])
 		}
 	}
 	return hand{red, green, blue}

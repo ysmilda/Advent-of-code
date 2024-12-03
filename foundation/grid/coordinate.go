@@ -4,11 +4,13 @@ import (
 	"github.com/ysmilda/Advent-of-code/foundation/aocmath"
 )
 
+// Coordinate represents a point in a 2D grid.
 type Coordinate struct {
 	X int
 	Y int
 }
 
+// NewCoordinate creates a new Coordinate with the given x and y values.
 func NewCoordinate(x, y int) Coordinate {
 	return Coordinate{
 		X: x,
@@ -16,6 +18,7 @@ func NewCoordinate(x, y int) Coordinate {
 	}
 }
 
+// Add returns the sum of two coordinates.
 func (c Coordinate) Add(other Coordinate) Coordinate {
 	return Coordinate{
 		X: c.X + other.X,
@@ -23,7 +26,8 @@ func (c Coordinate) Add(other Coordinate) Coordinate {
 	}
 }
 
-func (c Coordinate) AddDirection(d Direction, increment uint) Coordinate {
+// MoveInDirection returns the coordinate after moving in the given direction by the given increment.
+func (c Coordinate) MoveInDirection(d Direction, increment uint) Coordinate {
 	i := int(increment)
 	switch d {
 	case North:
@@ -53,6 +57,7 @@ func (c Coordinate) AddDirection(d Direction, increment uint) Coordinate {
 	return c
 }
 
+// Subtract returns the difference of two coordinates.
 func (c Coordinate) Subtract(other Coordinate) Coordinate {
 	return Coordinate{
 		X: c.X - other.X,
@@ -60,6 +65,7 @@ func (c Coordinate) Subtract(other Coordinate) Coordinate {
 	}
 }
 
+// Multiply returns the product of two coordinates.
 func (c Coordinate) Multiply(other Coordinate) Coordinate {
 	return Coordinate{
 		X: c.X * other.X,
@@ -67,6 +73,7 @@ func (c Coordinate) Multiply(other Coordinate) Coordinate {
 	}
 }
 
+// Divide returns the division of two coordinates.
 func (c Coordinate) Divide(other Coordinate) Coordinate {
 	if c.X == 0 || other.X == 0 || c.Y == 0 || other.Y == 0 {
 		panic("cannot divide by zero")
@@ -77,6 +84,7 @@ func (c Coordinate) Divide(other Coordinate) Coordinate {
 	}
 }
 
+// Abs returns the absolute value of the coordinate.
 func (c Coordinate) Abs() Coordinate {
 	return Coordinate{
 		X: aocmath.Abs(c.X),
@@ -84,6 +92,7 @@ func (c Coordinate) Abs() Coordinate {
 	}
 }
 
+// ManhattanDistance returns the Manhattan distance between two coordinates.
 func (c Coordinate) ManhattanDistance(other Coordinate) int {
 	return aocmath.Abs(c.X-other.X) + aocmath.Abs(c.Y-other.Y)
 }

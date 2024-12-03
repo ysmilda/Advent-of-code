@@ -56,7 +56,7 @@ func TestCoordinateAddDirection(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		result := tc.c.AddDirection(tc.d, tc.increment)
+		result := tc.c.MoveInDirection(tc.d, tc.increment)
 		assert.Equal(t, tc.expected, result)
 	}
 }

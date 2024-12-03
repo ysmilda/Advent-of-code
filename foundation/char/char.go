@@ -1,19 +1,11 @@
 package char
 
-import "strconv"
-
+// IsDigit checks if a character is a digit.
 func IsDigit(c byte) bool {
 	return c >= '0' && c <= '9'
 }
 
-func DigitToInt(c byte) int {
+// ToInt converts a character to an integer. It assumes that the character is a digit.
+func ToInt(c byte) int {
 	return int(c - '0')
-}
-
-func MustToInt(input string) int {
-	output, err := strconv.Atoi(input)
-	if err != nil {
-		panic(err)
-	}
-	return output
 }

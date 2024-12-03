@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/foundation/char"
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 	"github.com/ysmilda/Advent-of-code/foundation/solver"
 )
 
@@ -63,8 +63,8 @@ func (s puzzle) Part2() (int, error) {
 	}
 
 	combinedRace := race{
-		time:     char.MustToInt(tempTime),
-		distance: char.MustToInt(tempDistance),
+		time:     aocstrconv.MustAtoi(tempTime),
+		distance: aocstrconv.MustAtoi(tempDistance),
 	}
 
 	return combinedRace.findNumberOfWaysToWin(), nil
@@ -83,8 +83,8 @@ func parse(input string) (output []race) {
 			continue
 		}
 		output = append(output, race{
-			time:     char.MustToInt(times[i]),
-			distance: char.MustToInt(distances[i]),
+			time:     aocstrconv.MustAtoi(times[i]),
+			distance: aocstrconv.MustAtoi(distances[i]),
 		})
 	}
 

@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"strings"
 
-	"github.com/ysmilda/Advent-of-code/foundation/char"
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 	"github.com/ysmilda/Advent-of-code/foundation/solver"
 )
 
@@ -109,15 +109,8 @@ func parse(input string) (output []sequence) {
 	lines := strings.Split(input, "\n")
 	for _, line := range lines {
 		output = append(output, sequence{
-			input: toInts(strings.Fields(line)),
+			input: aocstrconv.MustAtoiSlice(strings.Fields(line)),
 		})
-	}
-	return output
-}
-
-func toInts(input []string) (output []int) {
-	for _, i := range input {
-		output = append(output, char.MustToInt(i))
 	}
 	return output
 }

@@ -4,8 +4,10 @@ import (
 	"errors"
 )
 
+// Grid represents a 2D grid of elements.
 type Grid[T comparable] [][]T
 
+// NewGrid creates a new grid with the given width and height.
 func NewGrid[T comparable](width, height uint) Grid[T] {
 	grid := make([][]T, height)
 
@@ -16,38 +18,37 @@ func NewGrid[T comparable](width, height uint) Grid[T] {
 	return grid
 }
 
+// Valid returns true if the given coordinate is within the grid.
 func (g Grid[T]) Valid(c Coordinate) bool {
 	return c.X >= 0 && c.Y >= 0 && c.X < g.GetWidth() && c.Y < g.GetHeight()
 }
 
+// GetWidth returns the width of the grid.
 func (g Grid[T]) GetWidth() int {
 	return len(g[0])
 }
 
+// GetHeight returns the height of the grid.
 func (g Grid[T]) GetHeight() int {
 	return len(g)
 }
 
-func (g Grid[T]) Get(x, y uint) T {
-	return g[y][x]
+// Get returns the element at the given coordinate.
+func (g Grid[T]) Get(c Coordinate) T {
+	return g[uint(c.Y)][uint(c.X)]
 }
 
-func (g Grid[T]) Set(x, y uint, b T) {
-	g[y][x] = b
+// Set sets the element at the given coordinate.
+func (g Grid[T]) Set(c Coordinate, b T) {
+	g[uint(c.Y)][uint(c.X)] = b
 }
 
-func (g Grid[T]) GetCoordinate(c Coordinate) T {
-	return g.Get(uint(c.X), uint(c.Y))
-}
-
-func (g Grid[T]) SetCoordinate(c Coordinate, b T) {
-	g.Set(uint(c.X), uint(c.Y), b)
-}
-
+// GetRow returns the row at the given y-coordinate.
 func (g Grid[T]) GetRow(y uint) []T {
 	return g[y]
 }
 
+// AddRow adds a row at the given index.
 func (g Grid[T]) AddRow(row []T, index uint) Grid[T] {
 	g = append(g, []T{})
 	copy(g[index+1:], g[index:])
@@ -55,6 +56,7 @@ func (g Grid[T]) AddRow(row []T, index uint) Grid[T] {
 	return g
 }
 
+// GetColumn returns the column at the given x-coordinate.
 func (g Grid[T]) GetColumn(x uint) []T {
 	column := make([]T, len(g))
 
@@ -65,6 +67,7 @@ func (g Grid[T]) GetColumn(x uint) []T {
 	return column
 }
 
+// AddColumn adds a column at the given index.
 func (g Grid[T]) AddColumn(column []T, index uint) Grid[T] {
 	for i, row := range g {
 		entry := column[i]
@@ -75,6 +78,7 @@ func (g Grid[T]) AddColumn(column []T, index uint) Grid[T] {
 	return g
 }
 
+// Find returns the coordinate of the first occurrence of the given element.
 func (g Grid[T]) Find(b T) (Coordinate, error) {
 	for y, row := range g {
 		for x, char := range row {
@@ -87,6 +91,7 @@ func (g Grid[T]) Find(b T) (Coordinate, error) {
 	return Coordinate{}, errors.New("unable to find")
 }
 
+// FindAll returns the coordinates of all occurrences of the given element.
 func (g Grid[T]) FindAll(b T) []Coordinate {
 	var coordinates []Coordinate
 

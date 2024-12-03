@@ -1,5 +1,6 @@
 package grid
 
+// Direction represents a direction in a 2D grid.
 type Direction int
 
 const (
@@ -14,6 +15,7 @@ const (
 	NorthWest
 )
 
+// GetDirection returns the direction from start to end.
 func GetDirection(start Coordinate, end Coordinate) Direction {
 	if start.X == end.X {
 		if start.Y > end.Y {

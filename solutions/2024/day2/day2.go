@@ -2,11 +2,11 @@ package aoc2024day2
 
 import (
 	_ "embed"
-	"strconv"
 	"strings"
 
 	"github.com/ysmilda/Advent-of-code/foundation/aocmath"
 	"github.com/ysmilda/Advent-of-code/foundation/aocslices"
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 	"github.com/ysmilda/Advent-of-code/foundation/solver"
 )
 
@@ -67,18 +67,7 @@ func parse(input string) (reports [][]int) {
 			continue
 		}
 
-		report := []int{}
-		levels := strings.Split(line, " ")
-
-		for _, level := range levels {
-			l, err := strconv.Atoi(level)
-			if err != nil {
-				panic(err)
-			}
-			report = append(report, l)
-		}
-
-		reports = append(reports, report)
+		reports = append(reports, aocstrconv.MustAtoiSlice(strings.Split(line, " ")))
 	}
 
 	return reports

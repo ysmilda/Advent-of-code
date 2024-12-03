@@ -17,48 +17,48 @@ type puzzle struct {
 
 func (s puzzle) Next(previous grid.Coordinate, current grid.Coordinate) grid.Coordinate {
 	d := grid.GetDirection(previous, current)
-	pipe := s.grid.GetCoordinate(current)
+	pipe := s.grid.Get(current)
 	switch pipe {
 	case '|':
 		if d.North() || d.South() {
-			return current.AddDirection(d, 1)
+			return current.MoveInDirection(d, 1)
 		}
 
 	case '-':
 		if d.West() || d.East() {
-			return current.AddDirection(d, 1)
+			return current.MoveInDirection(d, 1)
 		}
 
 	case 'L':
 		switch d {
 		case grid.West:
-			return current.AddDirection(grid.North, 1)
+			return current.MoveInDirection(grid.North, 1)
 		case grid.South:
-			return current.AddDirection(grid.East, 1)
+			return current.MoveInDirection(grid.East, 1)
 		}
 
 	case 'F':
 		switch d {
 		case grid.West:
-			return current.AddDirection(grid.South, 1)
+			return current.MoveInDirection(grid.South, 1)
 		case grid.North:
-			return current.AddDirection(grid.East, 1)
+			return current.MoveInDirection(grid.East, 1)
 		}
 
 	case 'J':
 		switch d {
 		case grid.East:
-			return current.AddDirection(grid.North, 1)
+			return current.MoveInDirection(grid.North, 1)
 		case grid.South:
-			return current.AddDirection(grid.West, 1)
+			return current.MoveInDirection(grid.West, 1)
 		}
 
 	case '7':
 		switch d {
 		case grid.East:
-			return current.AddDirection(grid.South, 1)
+			return current.MoveInDirection(grid.South, 1)
 		case grid.North:
-			return current.AddDirection(grid.West, 1)
+			return current.MoveInDirection(grid.West, 1)
 		}
 
 	case 'S':
@@ -67,7 +67,7 @@ func (s puzzle) Next(previous grid.Coordinate, current grid.Coordinate) grid.Coo
 			next = grid.NewCoordinate(x, y)
 			if s.grid.Valid(next) {
 				d := grid.GetDirection(current, next)
-				switch s.grid.GetCoordinate(next) {
+				switch s.grid.Get(next) {
 				case '|':
 					return d.North() || d.South()
 

@@ -2,9 +2,9 @@ package aoc2023day4
 
 import (
 	_ "embed"
-	"strconv"
 	"strings"
 
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 	"github.com/ysmilda/Advent-of-code/foundation/solver"
 )
 
@@ -62,8 +62,8 @@ func parse(input string) []card {
 	output := []card{}
 	for _, line := range lines {
 		numbersSplit := strings.Split(strings.Split(line, ":")[1], "|")
-		winningNumbers := convertToNumbers(strings.Fields(numbersSplit[0]))
-		entryNumbers := convertToNumbers(strings.Fields(numbersSplit[1]))
+		winningNumbers := aocstrconv.MustAtoiSlice(strings.Fields(numbersSplit[0]))
+		entryNumbers := aocstrconv.MustAtoiSlice(strings.Fields(numbersSplit[1]))
 
 		output = append(output, card{
 			instances:       1,
@@ -81,20 +81,6 @@ func matchingNumbers(winningNumbers, numbers []int) (output int) {
 				output++
 			}
 		}
-	}
-
-	return output
-}
-
-func convertToNumbers(input []string) []int {
-	output := []int{}
-
-	for _, i := range input {
-		num, err := strconv.Atoi(i)
-		if err != nil {
-			panic(err)
-		}
-		output = append(output, num)
 	}
 
 	return output

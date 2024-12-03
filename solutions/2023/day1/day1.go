@@ -51,7 +51,7 @@ func findDigits(line string) []int {
 	for i := 0; i < len(line); i++ {
 		c := line[i]
 		if char.IsDigit(c) {
-			digits = append(digits, char.DigitToInt(c))
+			digits = append(digits, char.ToInt(c))
 		}
 	}
 	return digits

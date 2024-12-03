@@ -5,7 +5,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ysmilda/Advent-of-code/foundation/char"
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 	"github.com/ysmilda/Advent-of-code/foundation/solver"
 )
 
@@ -92,7 +92,7 @@ func parse(input string) garden {
 	lines := strings.Split(input, "\n")
 
 	garden := garden{
-		seeds: toInt(strings.Fields(strings.Split(lines[0], ":")[1])),
+		seeds: aocstrconv.MustAtoiSlice(strings.Fields(strings.Split(lines[0], ":")[1])),
 	}
 
 	for _, line := range lines[1:] {
@@ -110,7 +110,7 @@ func parse(input string) garden {
 }
 
 func parseRange(input string) mapping {
-	parts := toInt(strings.Fields(input))
+	parts := aocstrconv.MustAtoiSlice(strings.Fields(input))
 	if len(parts) != 3 {
 		panic("invalid input")
 	}
@@ -120,13 +120,6 @@ func parseRange(input string) mapping {
 		source:      parts[1],
 		spread:      parts[2],
 	}
-}
-
-func toInt(input []string) (output []int) {
-	for _, value := range input {
-		output = append(output, char.MustToInt(value))
-	}
-	return output
 }
 
 func getDestination(source int, mapping []mapping) int {

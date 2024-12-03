@@ -77,7 +77,7 @@ func parse(input string) ([]int, map[symbol][]int) {
 
 		for j := 0; j < len(lines[i]); j++ {
 			if char.IsDigit(lines[i][j]) {
-				partNumber = partNumber*10 + char.DigitToInt(lines[i][j])
+				partNumber = partNumber*10 + char.ToInt(lines[i][j])
 
 				// Check for symbols around the number
 				for k := i - 1; k <= i+1; k++ {

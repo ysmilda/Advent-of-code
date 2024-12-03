@@ -3,9 +3,9 @@ package aoc2024day3
 import (
 	_ "embed"
 	"regexp"
-	"strconv"
 	"strings"
 
+	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 	"github.com/ysmilda/Advent-of-code/foundation/solver"
 )
 
@@ -75,15 +75,5 @@ func parse(input string) []string {
 
 func parseAndMultiply(s string) int {
 	parts := strings.Split(s, ",")
-	a, err := strconv.Atoi(parts[0])
-	if err != nil {
-		panic(err)
-	}
-
-	b, err := strconv.Atoi(parts[1])
-	if err != nil {
-		panic(err)
-	}
-
-	return (a * b)
+	return (aocstrconv.MustAtoi(parts[0]) * aocstrconv.MustAtoi(parts[1]))
 }
