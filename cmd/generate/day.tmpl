@@ -1,0 +1,41 @@
+package aoc{{.Year}}day{{.Day}}
+
+import (
+	_ "embed"
+	"strings"
+
+	"github.com/ysmilda/Advent-of-code/foundation/solver"
+)
+
+//go:embed input.txt
+var inputFile string
+
+type puzzle struct {
+	input []string
+}
+
+func MustGetSolver() solver.Solver {
+	return puzzle{
+		input: parse(inputFile),
+	}
+}
+
+func (s puzzle) GetDay() int {
+	return {{.Day}}
+}
+
+func (s puzzle) Part1() (int, error) {
+	sum := 0
+
+	return sum, nil
+}
+
+func (s puzzle) Part2() (int, error) {
+	sum := 0
+
+	return sum, nil
+}
+
+func parse(input string) []string {
+	return strings.Split(input, "\n")
+}
