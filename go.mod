@@ -1,10 +1,10 @@
 module github.com/ysmilda/Advent-of-code
 
-go 1.18
+go 1.23
 
 require (
-	github.com/stretchr/testify v1.8.4
-	golang.org/x/exp v0.0.0-20231127185646-65229373498e
+	github.com/stretchr/testify v1.10.0
+	golang.org/x/exp v0.0.0-20241108190413-2d47ceb2692f
 )
 
 require (

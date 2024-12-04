@@ -33,12 +33,12 @@ func (g Grid[T]) GetHeight() int {
 	return len(g)
 }
 
-// Get returns the element at the given coordinate.
+// Get returns the element at the given coordinate. It assumes the coordinate is valid.
 func (g Grid[T]) Get(c Coordinate) T {
 	return g[uint(c.Y)][uint(c.X)]
 }
 
-// Set sets the element at the given coordinate.
+// Set sets the element at the given coordinate. It assumes the coordinate is valid.
 func (g Grid[T]) Set(c Coordinate, b T) {
 	g[uint(c.Y)][uint(c.X)] = b
 }
