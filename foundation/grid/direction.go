@@ -15,6 +15,13 @@ const (
 	NorthWest
 )
 
+const (
+	Up    = North
+	Down  = South
+	Left  = West
+	Right = East
+)
+
 // GetDirection returns the direction from start to end.
 func GetDirection(start Coordinate, end Coordinate) Direction {
 	if start.X == end.X {
@@ -44,6 +51,22 @@ func GetDirection(start Coordinate, end Coordinate) Direction {
 	}
 
 	return None
+}
+
+func (d Direction) RotateLeft() Direction {
+	d -= 2
+	if d < North {
+		d += NorthWest
+	}
+	return d
+}
+
+func (d Direction) RotateRight() Direction {
+	d += 2
+	if d > NorthWest {
+		d -= NorthWest
+	}
+	return d
 }
 
 func (d Direction) North() bool {

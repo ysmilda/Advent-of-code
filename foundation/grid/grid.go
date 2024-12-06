@@ -18,6 +18,14 @@ func NewGrid[T comparable](width, height uint) Grid[T] {
 	return grid
 }
 
+func CopyFrom[T comparable](in Grid[T]) Grid[T] {
+	g := NewGrid[T](uint(in.GetWidth()), uint(in.GetHeight()))
+	for i, row := range in {
+		copy(g[i], row)
+	}
+	return g
+}
+
 // Valid returns true if the given coordinate is within the grid.
 func (g Grid[T]) Valid(c Coordinate) bool {
 	return c.X >= 0 && c.Y >= 0 && c.X < g.GetWidth() && c.Y < g.GetHeight()
