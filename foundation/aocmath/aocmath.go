@@ -81,3 +81,22 @@ func LCMs[T constraints.Integer](values ...T) T {
 	}
 	return result
 }
+
+// Concatenate returns xy. For example x: 12, y: 34 becomes 1234.
+func Concatenate[T constraints.Integer](x, y T) T {
+	pow := T(10)
+	for y >= pow {
+		pow *= 10
+	}
+	return x*pow + y
+}
+
+// Pow returns x**y.
+func Pow[T constraints.Integer](x, y T) T {
+	var i T
+	var out = x
+	for i = 0; i < y-1; i++ {
+		out *= x
+	}
+	return out
+}
