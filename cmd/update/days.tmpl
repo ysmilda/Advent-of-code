@@ -1,0 +1,15 @@
+package main
+
+import (
+	"github.com/ysmilda/Advent-of-code/foundation/solver"
+    {{ range $year, $days := . }}{{ range $day := $days}}aoc{{$year}}day{{$day}} "github.com/ysmilda/Advent-of-code/solutions/{{$year}}/day{{$day}}"
+    {{ end }}{{ end }}
+)
+
+func init() {
+	solvers = map[int][]solver.Solver{
+    {{ range $year, $days := . }}   {{$year}}: {
+    {{ range $day := $days}}        aoc{{$year}}day{{$day}}.MustGetSolver(),
+    {{ end }}},{{ end }}
+	}
+}
