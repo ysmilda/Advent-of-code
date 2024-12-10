@@ -26,7 +26,7 @@ func TestGetDay(t *testing.T) {
 }
 
 func TestPart1(t *testing.T) {
-	antennas, size := parse(inputFile)
+	antennas, size := parse(testInput)
 	solver := puzzle{
 		antennas: antennas,
 		size:     size,
