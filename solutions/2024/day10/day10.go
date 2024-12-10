@@ -83,12 +83,7 @@ func (s puzzle) check(coord grid.Coordinate, found func(grid.Coordinate)) {
 		return
 	}
 
-	for _, direction := range []grid.Direction{
-		grid.North,
-		grid.East,
-		grid.South,
-		grid.West,
-	} {
+	for _, direction := range grid.CardinalDirections {
 		if next := coord.MoveInDirection(direction, 1); s.input.Valid(next) && s.input.Get(next) == s.input.Get(coord)+1 {
 			s.check(next, found)
 		}

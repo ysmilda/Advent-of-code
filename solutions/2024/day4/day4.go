@@ -38,16 +38,7 @@ func (s puzzle) Part1() (int, error) {
 				continue
 			}
 
-			for _, d := range []grid.Direction{
-				grid.North,
-				grid.NorthEast,
-				grid.East,
-				grid.SouthEast,
-				grid.South,
-				grid.SouthWest,
-				grid.West,
-				grid.NorthWest,
-			} {
+			for _, d := range grid.AllDirections {
 				found := true
 				step := start
 				for _, c := range word[1:] {

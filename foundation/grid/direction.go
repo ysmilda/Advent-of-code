@@ -22,6 +22,24 @@ const (
 	Right = East
 )
 
+var AllDirections = []Direction{
+	North,
+	NorthEast,
+	East,
+	SouthEast,
+	South,
+	SouthWest,
+	West,
+	NorthWest,
+}
+
+var CardinalDirections = []Direction{
+	North,
+	East,
+	South,
+	West,
+}
+
 // GetDirection returns the direction from start to end.
 func GetDirection(start Coordinate, end Coordinate) Direction {
 	if start.X == end.X {
