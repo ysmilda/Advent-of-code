@@ -18,6 +18,18 @@ func NewGrid[T comparable](width, height uint) Grid[T] {
 	return grid
 }
 
+func NewGridFrom[T comparable](lines []string, parse func(rune) T) Grid[T] {
+	grid := NewGrid[T](uint(len(lines[0])), uint(len(lines)))
+
+	for y, row := range lines {
+		for x, c := range row {
+			grid.Set(NewCoordinate(x, y), parse(c))
+		}
+	}
+
+	return grid
+}
+
 func CopyFrom[T comparable](in Grid[T]) Grid[T] {
 	g := NewGrid[T](uint(in.GetWidth()), uint(in.GetHeight()))
 	for i, row := range in {

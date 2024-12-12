@@ -16,6 +16,7 @@ import (
 	aoc2024day1 "github.com/ysmilda/Advent-of-code/solutions/2024/day1"
 	aoc2024day10 "github.com/ysmilda/Advent-of-code/solutions/2024/day10"
 	aoc2024day11 "github.com/ysmilda/Advent-of-code/solutions/2024/day11"
+	aoc2024day12 "github.com/ysmilda/Advent-of-code/solutions/2024/day12"
 	aoc2024day2 "github.com/ysmilda/Advent-of-code/solutions/2024/day2"
 	aoc2024day3 "github.com/ysmilda/Advent-of-code/solutions/2024/day3"
 	aoc2024day4 "github.com/ysmilda/Advent-of-code/solutions/2024/day4"
@@ -30,8 +31,6 @@ func init() {
 	solvers = map[int][]solver.Solver{
 		2023: {
 			aoc2023day1.MustGetSolver(),
-			aoc2023day10.MustGetSolver(),
-			aoc2023day11.MustGetSolver(),
 			aoc2023day2.MustGetSolver(),
 			aoc2023day3.MustGetSolver(),
 			aoc2023day4.MustGetSolver(),
@@ -40,10 +39,10 @@ func init() {
 			aoc2023day7.MustGetSolver(),
 			aoc2023day8.MustGetSolver(),
 			aoc2023day9.MustGetSolver(),
+			aoc2023day10.MustGetSolver(),
+			aoc2023day11.MustGetSolver(),
 		}, 2024: {
 			aoc2024day1.MustGetSolver(),
-			aoc2024day10.MustGetSolver(),
-			aoc2024day11.MustGetSolver(),
 			aoc2024day2.MustGetSolver(),
 			aoc2024day3.MustGetSolver(),
 			aoc2024day4.MustGetSolver(),
@@ -52,6 +51,9 @@ func init() {
 			aoc2024day7.MustGetSolver(),
 			aoc2024day8.MustGetSolver(),
 			aoc2024day9.MustGetSolver(),
+			aoc2024day10.MustGetSolver(),
+			aoc2024day11.MustGetSolver(),
+			aoc2024day12.MustGetSolver(),
 		},
 	}
 }

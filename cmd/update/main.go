@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 
 	"github.com/ysmilda/Advent-of-code/foundation/aocstrconv"
 )
@@ -45,6 +46,10 @@ func main() {
 			dayInt := aocstrconv.MustAtoi(day.Name()[3:])
 			solutions[yearInt] = append(solutions[yearInt], dayInt)
 		}
+	}
+
+	for year := range solutions {
+		slices.Sort(solutions[year])
 	}
 
 	daysFile, err := os.Create("./days.go")
