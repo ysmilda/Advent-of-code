@@ -91,6 +91,14 @@ func Concatenate[T constraints.Integer](x, y T) T {
 	return x*pow + y
 }
 
+func Split[T constraints.Integer](x T) (T, T) {
+	divisor := T(10)
+	for x/divisor > divisor {
+		divisor *= T(10)
+	}
+	return x / divisor, x % divisor
+}
+
 // Pow returns x**y.
 func Pow[T constraints.Integer](x, y T) T {
 	var i T
@@ -99,4 +107,14 @@ func Pow[T constraints.Integer](x, y T) T {
 		out *= x
 	}
 	return out
+}
+
+func NumberOfDigits[T constraints.Integer](x T) T {
+	pow := T(10)
+	n := T(1)
+	for x > pow {
+		n++
+		pow *= 10
+	}
+	return n
 }

@@ -7,6 +7,8 @@ import (
 )
 
 func TestMin(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		a, b, expected int
 	}{
@@ -22,6 +24,8 @@ func TestMin(t *testing.T) {
 }
 
 func TestMax(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		a, b, expected int
 	}{
@@ -37,6 +41,8 @@ func TestMax(t *testing.T) {
 }
 
 func TestLimit(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		value, min, max, expected int
 	}{
@@ -52,6 +58,8 @@ func TestLimit(t *testing.T) {
 }
 
 func TestBetween(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		value, a, b int
 		expected    bool
@@ -70,6 +78,8 @@ func TestBetween(t *testing.T) {
 }
 
 func TestBetweenInclusive(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		value, a, b int
 		expected    bool
@@ -89,6 +99,8 @@ func TestBetweenInclusive(t *testing.T) {
 }
 
 func TestAbs(t *testing.T) {
+	t.Parallel()
+
 	testInts := []struct {
 		value, expected int
 	}{
@@ -117,6 +129,8 @@ func TestAbs(t *testing.T) {
 }
 
 func TestSameSign(t *testing.T) {
+	t.Parallel()
+
 	testInts := []struct {
 		a, b     int
 		expected bool
@@ -147,6 +161,8 @@ func TestSameSign(t *testing.T) {
 }
 
 func TestGCD(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		a, b, expected int
 	}{
@@ -162,6 +178,8 @@ func TestGCD(t *testing.T) {
 }
 
 func TestGCDs(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		values   []int
 		expected int
@@ -178,6 +196,8 @@ func TestGCDs(t *testing.T) {
 }
 
 func TestLCM(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		a, b, expected int
 	}{
@@ -194,6 +214,8 @@ func TestLCM(t *testing.T) {
 }
 
 func TestLCMs(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		values   []int
 		expected int
@@ -204,6 +226,75 @@ func TestLCMs(t *testing.T) {
 
 	for _, test := range tests {
 		result := LCMs(test.values...)
+		assert.Equal(t, test.expected, result)
+	}
+}
+
+func TestConcatenate(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		a, b, expected int
+	}{
+		{5, 10, 510},
+		{123, 456, 123456},
+	}
+
+	for _, test := range tests {
+		result := Concatenate(test.a, test.b)
+		assert.Equal(t, test.expected, result)
+	}
+}
+
+func TestSplit(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		a, expectedA, expectedB int
+	}{
+		{1234, 12, 34},
+		{123, 1, 23},
+		{1234567890, 12345, 67890},
+	}
+
+	for _, test := range tests {
+		resultA, resultB := Split(test.a)
+		assert.Equal(t, test.expectedA, resultA)
+		assert.Equal(t, test.expectedB, resultB)
+	}
+}
+
+func TestPow(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		a, b, expected int
+	}{
+		{5, 5, 3125},
+		{2, 3, 8},
+	}
+
+	for _, test := range tests {
+		result := Pow(test.a, test.b)
+		assert.Equal(t, test.expected, result)
+	}
+}
+
+func TestNumberOfDigits(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		a, expected int
+	}{
+		{1, 1},
+		{12, 2},
+		{123, 3},
+		{1234, 4},
+		{12345, 5},
+	}
+
+	for _, test := range tests {
+		result := NumberOfDigits(test.a)
 		assert.Equal(t, test.expected, result)
 	}
 }
